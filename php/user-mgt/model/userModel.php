@@ -1,5 +1,6 @@
 <?php 
     require_once('db.php');
+    
     function login($username, $password){
         $con = getConnection();
         $sql = "select * from users where username='{$username}' and password='{$password}'";
@@ -24,7 +25,25 @@
     }
 
     function getAllUser(){
+        $con = getConnection();
+        $sql = "select * from users";
+        $result = mysqli_query($con, $sql);
+        $users = [];
 
+        while($row = mysqli_fetch_assoc($result)){
+            //$users = $row;
+            array_push($users, $row);
+        }
+
+        return $users;
+    }
+    
+    function getUser($id){
+        $con = getConnection();
+        $sql = "select * from users where id='{$id}'";
+        $result = mysqli_query($con, $sql);
+        $user = mysqli_fetch_assoc($result);
+        return $user;
     }
 
     function deleteUser(){
